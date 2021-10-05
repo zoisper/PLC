@@ -1,2 +1,1 @@
-# PLC
-PLC
+# Procesamento de Linguagens e Compiladores
