@@ -10,7 +10,7 @@ import sys
 # Declare the state
 states = (
    ('soma','exclusive'),
-   ('sub','exclusive'),
+   ('sub','inclusive'),
 )
  
 # List of token names.   This is always required
@@ -26,11 +26,12 @@ tokens = (
 def t_ON1(t):
     r'[Oo][Nn]\+'
     t.lexer.begin('soma')
+    return t
 def t_ON2(t):
     r'[Oo][Nn]\-'
     t.lexer.begin('sub') 
     
-def t_DISPLAY(t):
+def t_ANY_DISPLAY(t):
     r'='
     print("soma = ", t.lexer.soma)
  
@@ -40,18 +41,15 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
  
 # A string containing ignored characters (spaces and tabs)
-t_ignore  = ' \t'
+t_ANY_ignore  = ' \t'
  
 # Error handling rule: remaining chars
-def t_error(t):
+def t_ANY_error(t):
     t.lexer.skip(1)
 
 # ---------------------------------------------------------------
 # Regular expression rules for tokens in semaforo state
-def t_soma_OFF(t):
-    r'[oO][fF][fF]'
-    t.lexer.begin('INITIAL')
-def t_sub_OFF(t):
+def t_ANY_OFF(t):
     r'[oO][fF][fF]'
     t.lexer.begin('INITIAL')
 
@@ -71,11 +69,10 @@ lexer.soma = 0
  
 # Reading input
 for linha in sys.stdin:
-    lexer.input(linha) 
-    tok = lexer.token()
-    while tok:
-        #print(tok)
-        tok = lexer.token()
+    lexer.input(linha)
+    for tok in lexer:
+        pass
+    
 
 print("A soma calculada final e: ", lexer.soma)
       
