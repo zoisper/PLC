@@ -32,13 +32,12 @@ def t_error(t):
 	print("Illegal Character:", t.value[0])
 	t.lexer.skip(1)
 
-t_ignore = '\r\n\t'
+t_ignore = ' \r\n\t'
 
 lexer = lex.lex()
 
-for linha in sys.stdin:
-    lexer.input(linha) 
-    tok = lexer.token()
-    while tok:
-        print(tok)
-        tok = lexer.token()
+#for linha in sys.stdin:
+#	lexer.input(linha) 
+#	for tok in lexer:
+#		print(tok)
+#		pass
