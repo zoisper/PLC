@@ -16,6 +16,7 @@ def t_RPAREN(t):
 
 def t_NUM(t):
 	r'\d+'
+	t.value = int(t.value)
 	return t
 
 def t_BOOL(t):
